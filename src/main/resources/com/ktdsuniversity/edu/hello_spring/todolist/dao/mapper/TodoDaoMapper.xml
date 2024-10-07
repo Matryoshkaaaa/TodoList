@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktdsuniversity.edu.hello_spring.dao">
+
+
+	<select id="selectAllTodo"
+		resultType="com.ktdsuniversity.edu.hello_spring.vo.TodoVO">
+		SELECT ID
+		, SUBJECT
+		, STATUS
+		, TO_CHAR(DEADLINE, 'YYYY-MM-DD') DEADLINE
+		FROM TODO
+	</select>
+
+	<insert id="insertTodo"
+		parameterType="com.ktdsuniversity.edu.hello_spring.vo.TodoWriteVO">
+		INSERT INTO TODO
+		(ID
+		, SUBJECT
+		, STATUS
+		, DEADLINE)
+		VALUES
+		(SEQ_TODO.NEXTVAL
+		, #{subject}
+		, NULL
+		, #{date})
+	</insert>
+
+	<update id="updateTodo"
+		parameterType="com.ktdsuniversity.edu.hello_spring.vo.TodoVO">
+		UPDATE TODO
+		SET STATUS = #{status}
+		WHERE ID = #{id}
+	</update>
+
+	<delete id="deleteTodo" parameterType="_int">
+		DELETE
+		FROM TODO
+		WHERE ID = #{_parameter}
+	</delete>
+
+	<select id="selectOneTodo" parameterType="_int"
+		resultType="com.ktdsuniversity.edu.hello_spring.vo.TodoVO">
+		SELECT ID
+		, SUBJECT
+		, STATUS
+		, TO_CHAR(DEADLINE, 'YYYY-MM-DD') DEADLINE
+		FROM TODO
+		WHERE ID = #{_parameter}
+	</select>
+
+</mapper>
+  
